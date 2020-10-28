@@ -14,7 +14,7 @@ namespace Caesar_cipher
 
             Console.WriteLine("Enter key");
             if (!Int32.TryParse(Console.ReadLine(), out int key)) key = 0;
-            else key = Math.Abs(key);
+            else key = Math.Abs(key); // if key was set to negative value
 
             if (operation == "d")
             {
@@ -32,15 +32,15 @@ namespace Caesar_cipher
 
         public static string Encryption(string data, int key)
         {
-            string encryptedData = String.Empty;
-            foreach(var letter in data)
+            string encryptedData = String.Empty; // string set to an empty not null, because later its value will be assigned
+            foreach (var letter in data)
             {
                 encryptedData += CaesarCipher(letter, key);
             }
             return encryptedData;
         }
 
-        public static string Decryption(string data, int key) => Encryption(data, (26 - (key % 26)));
+        public static string Decryption(string data, int key) => Encryption(data, (26 - (key % 26))); // if the key is larger than 26, the remainder is applied
 
 
         public static char CaesarCipher(char letter, int key)
@@ -49,7 +49,7 @@ namespace Caesar_cipher
             else if (!Char.IsLetter(letter)) return letter;
             else
             {
-                int letterOffset = Char.IsUpper(letter) ? 65 : 97;
+                int letterOffset = Char.IsUpper(letter) ? 65 : 97; // calculating ASCII character code offset
                 return (char)((((letter + key) - letterOffset) % 26) + letterOffset);
             }
         }
